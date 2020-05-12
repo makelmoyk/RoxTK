@@ -1,0 +1,38 @@
+﻿@page "/"
+@inherits EmployeeListBase
+
+@if (Employees == null)
+{
+    <div class="lds-dual-ring"></div>
+}
+else
+{
+<EditForm Model="Employees">
+    <input type="text" class="p-1" @bind="Search" name="search" placeholder="Search Employee" />
+    <button class="btn btn-info m-1 p-1" type="submit" @onclick="SearchEmployee">Search</button>
+</EditForm>
+<table class="table table-hover">
+        <caption>@Caption</caption>
+    <thead class="thead-light">
+        <tr>
+            <th scope="col" class="col-xs-1" width="5%">Id</th>
+            <th scope="col" class="col-xs-1" width="50%">Name</th>
+            <th scope="col" class="col-xs-1" width="38%"></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var employee in Employees)
+        {
+            <tr>
+                <th scope="row"> @employee.EmployeeId</th>
+                <td><a class="pointer-event" href="employeedetails/@employee.EmployeeId">@employee.FirstName @employee.LastName</a></td>
+                <td>
+                    <a class="btn btn-info m-0 oi oi-pencil" href="editemployee/@employee.EmployeeId"></a>
+                    <a class="btn btn-danger m-0 oi oi-delete" href="#"></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+}
